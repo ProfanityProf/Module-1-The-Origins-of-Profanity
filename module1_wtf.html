@@ -1,0 +1,2088 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Module 1: The Origins of Profanity | CULT 2300</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=Playfair+Display:wght@700;900&family=Space+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+
+/* ============================================
+   RESET & BASE
+   ============================================ */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; font-size: 16px; }
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0a0a0a;
+  color: #e8e4df;
+  line-height: 1.75;
+  overflow-x: hidden;
+}
+
+/* ============================================
+   CSS VARIABLES
+   ============================================ */
+:root {
+  --red: #d63a2f;
+  --red-light: #e85d52;
+  --red-dark: #9e2a21;
+  --gold: #c9a84c;
+  --gold-light: #e8c96e;
+  --cream: #f5f0e8;
+  --dark: #0a0a0a;
+  --dark-2: #111111;
+  --dark-3: #1a1a1a;
+  --dark-4: #222222;
+  --dark-5: #2a2a2a;
+  --mid: #444444;
+  --text: #e8e4df;
+  --text-muted: #9a9490;
+  --text-dim: #6b6560;
+  --border: rgba(255,255,255,0.08);
+  --border-red: rgba(214,58,47,0.3);
+  --section-max: 860px;
+  --wide-max: 1100px;
+}
+
+/* ============================================
+   SCROLL PROGRESS BAR
+   ============================================ */
+#progress-bar {
+  position: fixed;
+  top: 0; left: 0;
+  width: 0%;
+  height: 3px;
+  background: linear-gradient(90deg, var(--red), var(--gold));
+  z-index: 9999;
+  transition: width 0.1s linear;
+  box-shadow: 0 0 10px rgba(214,58,47,0.6);
+}
+
+/* ============================================
+   STICKY NAV
+   ============================================ */
+#sticky-nav {
+  position: fixed;
+  top: 3px; left: 0; right: 0;
+  background: rgba(10,10,10,0.92);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border-bottom: 1px solid var(--border);
+  z-index: 1000;
+  padding: 0 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  gap: 16px;
+}
+#sticky-nav .nav-brand {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.7rem;
+  color: var(--red);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+#sticky-nav .nav-links {
+  display: flex;
+  gap: 4px;
+  overflow-x: auto;
+  scrollbar-width: none;
+  flex: 1;
+  justify-content: center;
+}
+#sticky-nav .nav-links::-webkit-scrollbar { display: none; }
+#sticky-nav .nav-link {
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-decoration: none;
+  padding: 6px 12px;
+  border-radius: 20px;
+  white-space: nowrap;
+  transition: all 0.2s;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+}
+#sticky-nav .nav-link:hover { color: var(--text); background: rgba(255,255,255,0.06); }
+#sticky-nav .nav-link.active { color: var(--red); background: rgba(214,58,47,0.12); }
+#sticky-nav .nav-section-label {
+  font-size: 0.68rem;
+  color: var(--text-dim);
+  white-space: nowrap;
+  flex-shrink: 0;
+  font-style: italic;
+}
+
+/* ============================================
+   HERO
+   ============================================ */
+#hero {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: hidden;
+  padding: 80px 24px 60px;
+  background: linear-gradient(180deg, #0a0a0a 0%, #120808 50%, #0a0a0a 100%);
+}
+.hero-noise {
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+  opacity: 0.4;
+  pointer-events: none;
+}
+.hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(214,58,47,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(214,58,47,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  pointer-events: none;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 50%, black, transparent);
+}
+.hero-glow {
+  position: absolute;
+  top: 20%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 600px;
+  height: 600px;
+  background: radial-gradient(ellipse, rgba(214,58,47,0.12) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero-eyebrow {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.25em;
+  color: var(--red);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  position: relative;
+  animation: fadeUp 0.8s ease both;
+}
+.hero-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(3rem, 8vw, 7rem);
+  font-weight: 900;
+  line-height: 0.95;
+  text-align: center;
+  letter-spacing: -0.02em;
+  position: relative;
+  animation: fadeUp 0.8s 0.1s ease both;
+}
+.hero-title .line-profanity {
+  display: block;
+  color: var(--red);
+}
+.hero-title .line-origins {
+  display: block;
+  color: var(--cream);
+  font-size: 0.55em;
+  letter-spacing: 0.08em;
+  font-style: italic;
+  margin-top: 8px;
+}
+.hero-subtitle {
+  font-size: 1.05rem;
+  color: var(--text-muted);
+  text-align: center;
+  max-width: 560px;
+  margin-top: 28px;
+  line-height: 1.7;
+  position: relative;
+  animation: fadeUp 0.8s 0.2s ease both;
+}
+.hero-questions {
+  display: flex;
+  gap: 12px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+  justify-content: center;
+  position: relative;
+  animation: fadeUp 0.8s 0.3s ease both;
+}
+.hero-q {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.8rem;
+  padding: 10px 20px;
+  border: 1px solid var(--border-red);
+  border-radius: 100px;
+  color: var(--red-light);
+  background: rgba(214,58,47,0.06);
+  letter-spacing: 0.04em;
+}
+.hero-scroll {
+  position: absolute;
+  bottom: 32px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  color: var(--text-dim);
+  font-size: 0.7rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  animation: bounce 2s infinite;
+}
+.hero-scroll::after {
+  content: '';
+  display: block;
+  width: 1px;
+  height: 40px;
+  background: linear-gradient(var(--red), transparent);
+}
+@keyframes bounce {
+  0%, 100% { transform: translateX(-50%) translateY(0); }
+  50% { transform: translateX(-50%) translateY(6px); }
+}
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(24px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================
+   CONTENT WARNING BANNER
+   ============================================ */
+.content-warning {
+  background: linear-gradient(135deg, #1a1000, #1a0800);
+  border: 1px solid rgba(201,168,76,0.3);
+  border-left: 4px solid var(--gold);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 32px;
+  font-size: 0.9rem;
+  color: #d4c090;
+  line-height: 1.65;
+}
+.content-warning strong {
+  color: var(--gold-light);
+  display: block;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* ============================================
+   MAIN LAYOUT
+   ============================================ */
+main {
+  padding-top: 59px;
+}
+.module-section {
+  padding: 80px 24px;
+  position: relative;
+}
+.module-section:nth-child(even) {
+  background: var(--dark-2);
+}
+.section-inner {
+  max-width: var(--section-max);
+  margin: 0 auto;
+}
+.section-inner.wide {
+  max-width: var(--wide-max);
+}
+
+/* ============================================
+   SECTION HEADERS
+   ============================================ */
+.section-number {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--red);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.section-number::after {
+  content: '';
+  flex: 1;
+  max-width: 60px;
+  height: 1px;
+  background: var(--red);
+  opacity: 0.4;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.15;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.section-title em {
+  color: var(--red);
+  font-style: italic;
+}
+.section-lead {
+  font-size: 1.08rem;
+  color: var(--text-muted);
+  margin-bottom: 40px;
+  max-width: 640px;
+  line-height: 1.7;
+}
+.divider {
+  width: 60px;
+  height: 3px;
+  background: var(--red);
+  margin: 20px 0 32px;
+  border-radius: 2px;
+}
+
+/* ============================================
+   BODY TEXT
+   ============================================ */
+.prose p {
+  font-size: 1rem;
+  color: #ccc9c4;
+  line-height: 1.8;
+  margin-bottom: 20px;
+  max-width: 700px;
+}
+.prose p strong { color: var(--cream); }
+.prose ul, .prose ol {
+  margin: 16px 0 20px 0;
+  padding-left: 0;
+  list-style: none;
+}
+.prose li {
+  padding: 8px 0 8px 28px;
+  position: relative;
+  color: #ccc9c4;
+  line-height: 1.7;
+  font-size: 0.97rem;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.prose ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 17px;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--red);
+  opacity: 0.7;
+}
+.prose ol {
+  counter-reset: item;
+}
+.prose ol li {
+  counter-increment: item;
+}
+.prose ol li::before {
+  content: counter(item);
+  position: absolute;
+  left: 0;
+  top: 8px;
+  width: 20px;
+  height: 20px;
+  background: var(--red);
+  color: white;
+  border-radius: 4px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  font-family: 'Space Mono', monospace;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================
+   CALLOUT BOXES
+   ============================================ */
+.callout {
+  border-radius: 10px;
+  padding: 24px 28px;
+  margin: 32px 0;
+  position: relative;
+  overflow: hidden;
+}
+.callout::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 4px;
+  height: 100%;
+}
+.callout-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+  font-weight: 700;
+}
+.callout p {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  margin-bottom: 0;
+}
+.callout p + p { margin-top: 10px; }
+
+/* Before You Read */
+.callout-before {
+  background: rgba(201,168,76,0.07);
+  border: 1px solid rgba(201,168,76,0.2);
+}
+.callout-before::before { background: var(--gold); }
+.callout-before .callout-label { color: var(--gold-light); }
+.callout-before p { color: #d4c090; }
+
+/* Think About It */
+.callout-think {
+  background: rgba(100,160,220,0.07);
+  border: 1px solid rgba(100,160,220,0.2);
+}
+.callout-think::before { background: #64a0dc; }
+.callout-think .callout-label { color: #89c0f0; }
+.callout-think p { color: #b0c8e0; }
+
+/* Connect to Assignment */
+.callout-connect {
+  background: rgba(214,58,47,0.07);
+  border: 1px solid rgba(214,58,47,0.2);
+}
+.callout-connect::before { background: var(--red); }
+.callout-connect .callout-label { color: var(--red-light); }
+.callout-connect p { color: #d0a8a5; }
+
+/* Positionality */
+.callout-positionality {
+  background: rgba(80,180,120,0.07);
+  border: 1px solid rgba(80,180,120,0.2);
+}
+.callout-positionality::before { background: #50b478; }
+.callout-positionality .callout-label { color: #7dd4a0; }
+.callout-positionality p { color: #a0ccb0; }
+
+/* Non-Western Framework */
+.callout-framework {
+  background: rgba(180,100,220,0.07);
+  border: 1px solid rgba(180,100,220,0.2);
+}
+.callout-framework::before { background: #b464dc; }
+.callout-framework .callout-label { color: #cc90f0; }
+.callout-framework p { color: #c0a0d8; }
+
+/* ============================================
+   PULL QUOTE
+   ============================================ */
+.pull-quote {
+  border-left: 3px solid var(--red);
+  padding: 12px 0 12px 28px;
+  margin: 32px 0;
+}
+.pull-quote blockquote {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  color: var(--cream);
+  font-style: italic;
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+.pull-quote cite {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--red);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-style: normal;
+}
+
+/* ============================================
+   DEFINITION CARDS (5 Frameworks)
+   ============================================ */
+.def-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+  margin: 32px 0;
+}
+.def-card {
+  background: var(--dark-3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s ease;
+  cursor: default;
+}
+.def-card:hover {
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 30px rgba(0,0,0,0.4);
+}
+.def-card .card-tag {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--gold);
+  margin-bottom: 10px;
+}
+.def-card .card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+.def-card .card-body {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+}
+.def-card .card-source {
+  margin-top: 12px;
+  font-size: 0.75rem;
+  color: var(--text-dim);
+  font-style: italic;
+}
+.def-card .card-accent {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 3px;
+}
+
+/* ============================================
+   GLOSSARY GRID
+   ============================================ */
+.glossary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 12px;
+  margin: 28px 0;
+}
+.gloss-item {
+  background: var(--dark-4);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 18px;
+  transition: all 0.2s;
+}
+.gloss-item:hover {
+  background: var(--dark-5);
+  border-color: rgba(214,58,47,0.25);
+}
+.gloss-term {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.82rem;
+  color: var(--red-light);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  margin-bottom: 6px;
+}
+.gloss-def {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ============================================
+   VENN DIAGRAM - Mohr's 3 Lenses
+   ============================================ */
+.venn-container {
+  background: var(--dark-3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin: 28px 0;
+  overflow: hidden;
+}
+.venn-title {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+.venn-sub {
+  font-size: 0.85rem;
+  color: var(--text-dim);
+  margin-bottom: 24px;
+}
+.venn-svg-wrap {
+  max-width: 600px;
+  margin: 0 auto;
+}
+.venn-svg-wrap svg {
+  width: 100%;
+  height: auto;
+}
+.venn-explainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-top: 24px;
+}
+.venn-lens {
+  padding: 16px;
+  border-radius: 8px;
+  font-size: 0.85rem;
+}
+.venn-lens strong {
+  display: block;
+  font-size: 0.82rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  letter-spacing: 0.04em;
+}
+.venn-lens.phys { background: rgba(220,140,100,0.1); border: 1px solid rgba(220,140,100,0.2); }
+.venn-lens.phys strong { color: #e8a070; }
+.venn-lens.hist { background: rgba(100,160,100,0.1); border: 1px solid rgba(100,160,100,0.2); }
+.venn-lens.hist strong { color: #7ec87e; }
+.venn-lens.ling { background: rgba(100,140,220,0.1); border: 1px solid rgba(100,140,220,0.2); }
+.venn-lens.ling strong { color: #7aaae8; }
+.venn-lens p { color: var(--text-muted); line-height: 1.55; }
+
+/* ============================================
+   TIMELINE
+   ============================================ */
+.timeline {
+  position: relative;
+  margin: 32px 0;
+}
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 20px;
+  top: 0; bottom: 0;
+  width: 2px;
+  background: linear-gradient(var(--red), rgba(214,58,47,0.1));
+}
+.tl-item {
+  padding-left: 58px;
+  padding-bottom: 32px;
+  position: relative;
+}
+.tl-item:last-child { padding-bottom: 0; }
+.tl-dot {
+  position: absolute;
+  left: 12px;
+  top: 6px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: var(--red);
+  border: 3px solid var(--dark);
+  box-shadow: 0 0 0 2px var(--red-dark);
+}
+.tl-era {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--red);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.tl-heading {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 6px;
+}
+.tl-body {
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  line-height: 1.65;
+  max-width: 600px;
+}
+.tl-example {
+  display: inline-block;
+  background: rgba(214,58,47,0.1);
+  border: 1px solid rgba(214,58,47,0.2);
+  color: var(--red-light);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  margin: 4px 3px 0 0;
+}
+
+/* ============================================
+   PINKER TYPES CARDS
+   ============================================ */
+.pinker-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 14px;
+  margin: 28px 0;
+}
+.pinker-card {
+  background: var(--dark-3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.25s;
+  position: relative;
+  overflow: hidden;
+}
+.pinker-card:hover, .pinker-card.open {
+  border-color: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+.pinker-card .pc-type {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.62rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin-bottom: 6px;
+}
+.pinker-card .pc-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 10px;
+}
+.pinker-card .pc-short {
+  font-size: 0.84rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+.pinker-card .pc-detail {
+  display: none;
+  margin-top: 14px;
+  padding-top: 14px;
+  border-top: 1px solid var(--border);
+  font-size: 0.83rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.pinker-card.open .pc-detail { display: block; }
+.pinker-card .pc-example {
+  display: block;
+  margin-top: 10px;
+  background: rgba(255,255,255,0.04);
+  border-radius: 6px;
+  padding: 10px 12px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--gold);
+  font-style: italic;
+}
+.pinker-card .pc-toggle {
+  position: absolute;
+  top: 16px; right: 16px;
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  transition: transform 0.2s;
+}
+.pinker-card.open .pc-toggle { transform: rotate(180deg); }
+
+/* ============================================
+   VIDEO EMBED
+   ============================================ */
+.video-wrap {
+  margin: 28px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  background: var(--dark-3);
+  border: 1px solid var(--border);
+}
+.video-label {
+  padding: 14px 18px;
+  background: var(--dark-4);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  color: var(--red);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.video-label::before {
+  content: '▶';
+  color: var(--red);
+  font-size: 0.6rem;
+}
+.video-caption {
+  padding: 12px 18px;
+  font-size: 0.82rem;
+  color: var(--text-dim);
+  border-top: 1px solid var(--border);
+  font-style: italic;
+}
+.video-responsive {
+  position: relative;
+  padding-bottom: 56.25%;
+  height: 0;
+  overflow: hidden;
+}
+.video-responsive iframe {
+  position: absolute;
+  top: 0; left: 0;
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* ============================================
+   ACCORDION / APA REFERENCES
+   ============================================ */
+.apa-accordion {
+  margin: 40px 0 20px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  overflow: hidden;
+}
+.apa-toggle {
+  width: 100%;
+  background: var(--dark-4);
+  border: none;
+  padding: 16px 22px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-muted);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: all 0.2s;
+}
+.apa-toggle:hover { background: var(--dark-5); color: var(--text); }
+.apa-toggle .toggle-icon {
+  font-size: 0.9rem;
+  transition: transform 0.2s;
+}
+.apa-toggle.open .toggle-icon { transform: rotate(180deg); }
+.apa-content {
+  display: none;
+  padding: 20px 22px;
+  background: var(--dark-3);
+  border-top: 1px solid var(--border);
+}
+.apa-content.visible { display: block; }
+.apa-entry {
+  font-size: 0.82rem;
+  color: var(--text-muted);
+  line-height: 1.7;
+  margin-bottom: 12px;
+  padding-left: 24px;
+  text-indent: -24px;
+}
+.apa-entry:last-child { margin-bottom: 0; }
+
+/* ============================================
+   SCROLL ANIMATIONS
+   ============================================ */
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+}
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reveal-delay-1 { transition-delay: 0.1s; }
+.reveal-delay-2 { transition-delay: 0.2s; }
+.reveal-delay-3 { transition-delay: 0.3s; }
+.reveal-delay-4 { transition-delay: 0.4s; }
+
+/* ============================================
+   TYPOLOGY DIAGRAM CONTAINER
+   ============================================ */
+.typology-visual {
+  background: var(--dark-3);
+  border: 1px solid var(--border);
+  border-radius: 16px;
+  padding: 32px;
+  margin: 28px 0;
+  text-align: center;
+}
+.typology-center {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 80px;
+  height: 80px;
+  background: var(--gold);
+  border-radius: 50%;
+  font-weight: 900;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #000;
+  font-family: 'Space Mono', monospace;
+  margin-bottom: 20px;
+}
+.typology-clusters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  justify-content: center;
+  margin-top: 12px;
+}
+.typ-cluster {
+  padding: 8px 16px;
+  border-radius: 100px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  letter-spacing: 0.03em;
+}
+.typ-blue { background: rgba(70,130,200,0.15); border: 1px solid rgba(70,130,200,0.3); color: #7aacee; }
+.typ-teal { background: rgba(60,160,150,0.15); border: 1px solid rgba(60,160,150,0.3); color: #5dcdc0; }
+.typ-green { background: rgba(80,160,80,0.15); border: 1px solid rgba(80,160,80,0.3); color: #7ed47e; }
+.typ-olive { background: rgba(120,140,60,0.15); border: 1px solid rgba(120,140,60,0.3); color: #aabe6a; }
+.typ-purple { background: rgba(150,80,200,0.15); border: 1px solid rgba(150,80,200,0.3); color: #cc90ee; }
+.typ-grey { background: rgba(130,130,140,0.15); border: 1px solid rgba(130,130,140,0.3); color: #a8a8b8; }
+
+/* ============================================
+   GLOBAL LENS CARDS
+   ============================================ */
+.global-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 16px;
+  margin: 28px 0;
+}
+.global-card {
+  background: var(--dark-3);
+  border: 1px solid rgba(180,100,220,0.15);
+  border-radius: 12px;
+  padding: 22px;
+  position: relative;
+  overflow: hidden;
+  transition: all 0.25s;
+}
+.global-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, #b464dc, #6a40dc);
+}
+.global-card:hover {
+  border-color: rgba(180,100,220,0.3);
+  transform: translateY(-2px);
+}
+.global-card .gc-tradition {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.65rem;
+  letter-spacing: 0.15em;
+  color: #cc90f0;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+.global-card .gc-concept {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--cream);
+  margin-bottom: 8px;
+}
+.global-card .gc-body {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ============================================
+   SEMANTIC CHANGE SECTION
+   ============================================ */
+.sem-change-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin: 28px 0;
+}
+.sem-box {
+  background: var(--dark-3);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 24px;
+}
+.sem-box .sem-label {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.sem-box.pejoration .sem-label { color: var(--red-light); }
+.sem-box.amelioration .sem-label { color: #7ed47e; }
+.sem-box .sem-def {
+  font-size: 0.92rem;
+  color: var(--cream);
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+.sem-box .sem-body {
+  font-size: 0.86rem;
+  color: var(--text-muted);
+  line-height: 1.6;
+  margin-bottom: 14px;
+}
+.sem-examples {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+.sem-ex-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 0.82rem;
+}
+.sem-word {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  padding: 3px 10px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.75rem;
+  color: var(--cream);
+}
+.sem-arrow { color: var(--text-dim); font-size: 0.8rem; }
+.sem-meaning {
+  color: var(--text-muted);
+  font-style: italic;
+}
+
+/* ============================================
+   WHO DECIDES SECTION
+   ============================================ */
+.who-decides-rings {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  margin: 28px 0;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid var(--border);
+}
+.wdr-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 16px 22px;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.wdr-item:last-child { border-bottom: none; }
+.wdr-item:hover { background: rgba(255,255,255,0.02); }
+.wdr-level {
+  min-width: 120px;
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--gold);
+  letter-spacing: 0.05em;
+}
+.wdr-body {
+  font-size: 0.88rem;
+  color: var(--text-muted);
+  line-height: 1.55;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+footer {
+  background: var(--dark-2);
+  border-top: 1px solid var(--border);
+  padding: 40px 24px;
+  margin-top: 0;
+}
+.footer-inner {
+  max-width: var(--section-max);
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.footer-course {
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  color: var(--red);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+}
+.footer-title {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem;
+  color: var(--cream);
+}
+.footer-credits {
+  font-size: 0.8rem;
+  color: var(--text-dim);
+  line-height: 1.6;
+}
+.footer-credits a {
+  color: var(--text-muted);
+  text-decoration: none;
+  border-bottom: 1px solid var(--border);
+  transition: color 0.2s;
+}
+.footer-credits a:hover { color: var(--text); }
+
+/* ============================================
+   RESPONSIVE
+   ============================================ */
+@media (max-width: 680px) {
+  .def-grid, .glossary-grid, .pinker-grid { grid-template-columns: 1fr; }
+  .venn-explainer { grid-template-columns: 1fr; }
+  .sem-change-grid { grid-template-columns: 1fr; }
+  .global-grid { grid-template-columns: 1fr; }
+  #sticky-nav .nav-links { display: none; }
+}
+
+/* ============================================
+   HIGHLIGHTED TEXT
+   ============================================ */
+mark {
+  background: rgba(214,58,47,0.2);
+  color: var(--red-light);
+  padding: 1px 4px;
+  border-radius: 3px;
+}
+.tag-red {
+  display: inline-block;
+  background: rgba(214,58,47,0.12);
+  border: 1px solid rgba(214,58,47,0.25);
+  color: var(--red-light);
+  font-family: 'Space Mono', monospace;
+  font-size: 0.72rem;
+  padding: 2px 8px;
+  border-radius: 4px;
+  letter-spacing: 0.04em;
+}
+
+/* ============================================
+   SECTION SEPARATORS
+   ============================================ */
+.section-sep {
+  border: none;
+  height: 1px;
+  background: var(--border);
+  margin: 0;
+}
+
+</style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div id="progress-bar"></div>
+
+<!-- STICKY NAV -->
+<nav id="sticky-nav" role="navigation">
+  <span class="nav-brand">CULT 2300 // M1</span>
+  <div class="nav-links">
+    <a href="#section-what" class="nav-link">What Is It?</a>
+    <a href="#section-terms" class="nav-link">Terminology</a>
+    <a href="#section-context" class="nav-link">Context</a>
+    <a href="#section-mohr" class="nav-link">Mohr's Lenses</a>
+    <a href="#section-physiology" class="nav-link">Brain &amp; Body</a>
+    <a href="#section-typology" class="nav-link">Typology</a>
+    <a href="#section-who" class="nav-link">Who Decides</a>
+    <a href="#section-global" class="nav-link">Global Lens</a>
+  </div>
+  <span class="nav-section-label" id="nav-current-section">Scroll to begin</span>
+</nav>
+
+<!-- ============================================================
+     HERO
+     ============================================================ -->
+<header id="hero">
+  <div class="hero-noise"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <span class="hero-eyebrow">CULT 2300 &mdash; WTF: Profanity, Language &amp; Power &mdash; Module 1</span>
+
+  <h1 class="hero-title">
+    <span class="line-profanity">Profanity</span>
+    <span class="line-origins">The Origins</span>
+  </h1>
+
+  <p class="hero-subtitle">
+    Where do "bad words" actually come from? Before we can answer that, we need to ask three harder questions.
+  </p>
+
+  <div class="hero-questions">
+    <span class="hero-q">What is it?</span>
+    <span class="hero-q">Where does it come from?</span>
+    <span class="hero-q">Who/what decides?</span>
+  </div>
+
+  <div class="hero-scroll">Scroll</div>
+</header>
+
+<main>
+
+<!-- ============================================================
+     BEFORE YOU READ
+     ============================================================ -->
+<section class="module-section">
+  <div class="section-inner">
+    <div class="content-warning reveal">
+      <strong>&#9888; Content Notice</strong>
+      This module uses profanity and offensive language as objects of academic study. The goal is analysis, not shock value. Slurs are censored throughout except where reclaimed terms are discussed with care. If any content is difficult for you, you can engage with the ideas at whatever distance feels appropriate &mdash; that is part of studying language critically.
+    </div>
+
+    <div class="callout callout-positionality reveal">
+      <div class="callout-label">Instructor Positionality</div>
+      <p>I (Michael Spencer) come to this material as a white, cisgender, able-bodied, English-speaking settler living in Canada. That means certain words have never been used against me personally, and some taboos cost me less to navigate than they cost others. Privilege doesn't disqualify someone from rigorous analysis &mdash; but it should inform how we do it. This course is built on the premise that your lived experiences with language are as analytically valuable as anything in the research literature. The assignments are designed to make that explicit.</p>
+    </div>
+
+    <div class="callout callout-before reveal">
+      <div class="callout-label">Before You Read</div>
+      <p>Think about the last time you heard a word that genuinely shocked or offended you &mdash; or a word you personally avoid saying. Ask yourself: <em>Why</em> does that word have that power? Is it the word itself? The context? Who said it, and to whom? Hold those questions as you work through this module.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================
+     SECTION 1: WHAT IS PROFANITY?
+     ============================================================ -->
+<section id="section-what" class="module-section" data-section="What Is Profanity?">
+  <div class="section-inner">
+    <div class="section-number reveal">Section 01</div>
+    <h2 class="section-title reveal">What Is <em>Profanity</em>?</h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal">You'd think this would be the easy question. It isn't. "Profanity" means something different depending on who's defining it &mdash; and that disagreement turns out to be the whole point.</p>
+
+    <div class="prose reveal">
+      <p>The word "profanity" derives from the Latin <em>profanus</em> &mdash; meaning "before the temple" or "outside the sacred space." Originally, to be profane was to be literally outside the holy. Over time, the meaning shifted to describe language that <em>violates</em> what a community holds sacred, whether that sacredness is religious, social, or both.</p>
+
+      <p>Here is the problem: whose sacred space? Whose norms? This is not an abstract philosophical question. It determines whether someone gets fired, suspended, prosecuted, or censored. As linguist Timothy Jay (2009) argues, profanity cannot be meaningfully defined without also specifying the cultural and historical context in which it is being evaluated. A word that is deeply offensive in one community may be entirely unremarkable in another.</p>
+    </div>
+
+    <div class="pull-quote reveal">
+      <blockquote>"Not merely offensive due to their meaning but considered taboo in and of themselves."</blockquote>
+      <cite>Stephen Eldridge's definition, highlighting the distinction between meaning and status</cite>
+    </div>
+
+    <p class="prose reveal" style="margin-bottom:8px;"><strong>Five major frameworks for defining profanity:</strong></p>
+
+    <div class="def-grid reveal">
+      <div class="def-card">
+        <div class="card-accent" style="background: linear-gradient(90deg, #e8904a, #c96030);"></div>
+        <div class="card-tag">Religious</div>
+        <div class="card-title">Sacred Violation</div>
+        <div class="card-body">Profanity as irreverence toward the sacred. Language that desecrates, disrespects, or invokes divine forces improperly. This is the oldest definition, and it shaped English profanity law for centuries.</div>
+        <div class="card-source">Oxford English Dictionary; Merriam-Webster</div>
+      </div>
+      <div class="def-card">
+        <div class="card-accent" style="background: linear-gradient(90deg, #4a90d4, #3060a8);"></div>
+        <div class="card-tag">Linguistic</div>
+        <div class="card-title">Taboo Language</div>
+        <div class="card-body">Language that desecrates or shows disrespect toward religion, deities, or holy things; in modern use it broadly overlaps with swearwords. Any language that violates norms of social decency.</div>
+        <div class="card-source">Allan &amp; Burridge (2006); Timothy Jay (2009)</div>
+      </div>
+      <div class="def-card">
+        <div class="card-accent" style="background: linear-gradient(90deg, #50b478, #308858);"></div>
+        <div class="card-tag">Legal</div>
+        <div class="card-title">Public Nuisance</div>
+        <div class="card-body">The U.S. Federal Communications Commission (FCC) defines profanity as language "so grossly offensive to members of the public who actually hear it as to amount to a nuisance." Canada has no direct equivalent, leaving considerably more room for ambiguity.</div>
+        <div class="card-source">FCC Indecency Guidelines</div>
+      </div>
+      <div class="def-card">
+        <div class="card-accent" style="background: linear-gradient(90deg, #d070c8, #9040a0);"></div>
+        <div class="card-tag">Popular</div>
+        <div class="card-title">Rude Words</div>
+        <div class="card-body">Profanity consists of swear words or offensive language. Profanities are rude or offensive words or expressions. Simple and circular &mdash; which is part of why popular definitions are inadequate for academic analysis.</div>
+        <div class="card-source">Collins English Dictionary</div>
+      </div>
+      <div class="def-card">
+        <div class="card-accent" style="background: linear-gradient(90deg, #c9a84c, #a07830);"></div>
+        <div class="card-tag">Cultural</div>
+        <div class="card-title">Norm Violation</div>
+        <div class="card-body">Profanity is part of the larger system of "swearing," which includes curses, oaths, insults, and taboo words. Profanity specifically involves language that violates norms of respect, especially toward the sacred or the socially sensitive.</div>
+        <div class="card-source">Pinker, <em>The Stuff of Thought</em> (2007)</div>
+      </div>
+    </div>
+
+    <div class="callout callout-think reveal">
+      <div class="callout-label">Think About It</div>
+      <p>Notice how each definition above raises its own unanswered question. The religious definition asks: sacred to <em>whom</em>? The legal definition asks: offensive to which members of the public? The popular definition is effectively circular &mdash; profanity is offensive language, and offensive language is profanity. What does it tell us that we struggle this much to define a category of words that everyone seems to recognize instantly?</p>
+    </div>
+
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Section 1 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Allan, K., &amp; Burridge, K. (2006). <em>Forbidden words: Taboo and the censoring of language.</em> Cambridge University Press.</p>
+        <p class="apa-entry">Jay, T. (2009). The utility and ubiquity of taboo words. <em>Perspectives on Psychological Science, 4</em>(2), 153&ndash;161.</p>
+        <p class="apa-entry">Pinker, S. (2007). <em>The stuff of thought: Language as a window into human nature.</em> Viking.</p>
+        <p class="apa-entry">Oxford English Dictionary. (n.d.). <em>Profanity</em>. Oxford University Press.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ============================================================
+     SECTION 2: TERMINOLOGY
+     ============================================================ -->
+<section id="section-terms" class="module-section" data-section="The Terminology Field">
+  <div class="section-inner">
+    <div class="section-number reveal">Section 02</div>
+    <h2 class="section-title reveal">The <em>Terminology</em> Field</h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal">Profanity doesn't exist alone. It sits inside a cluster of overlapping, related concepts &mdash; and precision matters. Using these terms correctly is the foundation of every analysis you'll do in this course.</p>
+
+    <div class="prose reveal">
+      <p>"Profanity," "swearing," "vulgarity," and "obscenity" are often used interchangeably in everyday speech &mdash; but they are analytically distinct. Lumping them together is a bit like calling every citrus fruit a "lemon." The distinctions reveal different social histories, different legal regimes, and different psychological mechanisms.</p>
+
+      <p>One place to start: the word <strong>TABOO</strong> itself. It comes from the Polynesian word <em>tapu</em>, meaning something simultaneously spiritual and forbidden. Captain James Cook brought the word into English in 1777 after his voyages to the Pacific. The concept that some things are sacred and dangerous to touch &mdash; whether literally or linguistically &mdash; is nearly universal across human cultures, even if the specific content of what is taboo varies dramatically.</p>
+    </div>
+
+    <div class="glossary-grid reveal">
+      <div class="gloss-item">
+        <div class="gloss-term">Profanity</div>
+        <div class="gloss-def">Language that violates norms around the sacred or socially sensitive; the umbrella category for this course.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Swearing / Swear Words</div>
+        <div class="gloss-def">The broader act of using taboo language, including oaths, curses, and expletives. All profanity can be swearing, but not all swearing is profanity.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Slurs</div>
+        <div class="gloss-def">Words that target people based on identity (race, gender, sexuality, disability, etc.). The most socially consequential category of taboo language.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Cursing / Cussing</div>
+        <div class="gloss-def">Calling for harm or misfortune upon someone through language. The oldest form of "bad language" &mdash; invoking supernatural forces against an enemy.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Blasphemy</div>
+        <div class="gloss-def">Specifically religious profanity: language that desecrates or shows contempt for God, sacred figures, or religious institutions. Still a criminal offence in some jurisdictions.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Obscenity</div>
+        <div class="gloss-def">Language (or content) considered offensive to prevailing standards of decency, particularly regarding sex or bodily functions. More often a legal than a linguistic category.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Expletive</div>
+        <div class="gloss-def">A word used to add emphasis or fill space, often with no literal meaning (e.g., "what the hell?"). Expletives are frequently profane but don't have to be.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Epithet</div>
+        <div class="gloss-def">A word or phrase used to characterize someone, often insultingly. Slurs are a subcategory of epithets.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Vulgarity</div>
+        <div class="gloss-def">Language associated with low social status or crude behaviour. More about class and taste than morality.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Euphemism</div>
+        <div class="gloss-def">A mild or indirect substitute for something considered too blunt or offensive. "Passed away" instead of "died." The polite side of taboo avoidance.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Dysphemism</div>
+        <div class="gloss-def">The opposite: using a harsher, more offensive substitute. Makes something sound worse than it is. Calling police "pigs" is dysphemistic.</div>
+      </div>
+      <div class="gloss-item">
+        <div class="gloss-term">Grawlix / Obsenicon</div>
+        <div class="gloss-def">The typographic substitution of symbols for swear words: @#$%! Found in comic strips since the early 20th century.</div>
+      </div>
+    </div>
+
+    <div class="prose reveal">
+      <p>Notice that euphemism and dysphemism are both forms of <strong>taboo avoidance</strong> &mdash; one softens the blow, the other amplifies it. Allan and Burridge (2006) refer to these as complementary strategies in what they call the "lexical toolkit" for navigating socially sensitive topics. The existence of grawlixes (those @#$%! substitutions) tells us something interesting: we can signal that a word is being avoided without actually saying it, and the social effect is largely preserved.</p>
+    </div>
+
+    <div class="video-wrap reveal">
+      <div class="video-label">Video: Why Do We Swear? (Vsauce)</div>
+      <div class="video-responsive">
+        <iframe src="https://www.youtube.com/embed/PbBzhqJK3bg" title="Why Do We Swear? | Vsauce" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">Vsauce's Michael Stevens offers a science-forward introduction to why swear words exist and how they work neurologically and socially. (~12 min)</div>
+    </div>
+
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Section 2 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Allan, K., &amp; Burridge, K. (2006). <em>Forbidden words: Taboo and the censoring of language.</em> Cambridge University Press.</p>
+        <p class="apa-entry">Mohr, M. (2013). <em>Holy sh*t: A brief history of swearing.</em> Oxford University Press.</p>
+        <p class="apa-entry">Jay, T. (1992). <em>Cursing in America: A psycholinguistic study of dirty language in the courts, in the movies, in the schoolyards, and on the streets.</em> John Benjamins.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ============================================================
+     SECTION 3: CONTEXT & USE-MENTION
+     ============================================================ -->
+<section id="section-context" class="module-section" data-section="Context Matters">
+  <div class="section-inner">
+    <div class="section-number reveal">Section 03</div>
+    <h2 class="section-title reveal">Context Matters &mdash; and So Does the <em>Use&ndash;Mention Distinction</em></h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal">The same word can be perfectly acceptable or deeply offensive depending entirely on who says it, to whom, in what setting, and for what purpose. This isn't wishy-washy relativism &mdash; it's a structural feature of how language works.</p>
+
+    <div class="prose reveal">
+      <p>Consider the word "shit." In a medical context, "feces" is the clinical term and "shit" is taboo. But in many households, parents matter-of-factly ask toddlers whether they need to "take a shit" &mdash; the intimate, informal register of family life. The word hasn't changed. The context has. As Pinker (2007) argues, profanity is not about the acoustics of a word; it is about the social relationship between speaker, audience, and setting at the moment of utterance.</p>
+
+      <p>One of the most important analytical tools for this course is the <strong>use&ndash;mention distinction</strong>. When we <em>use</em> a word, we deploy it to do its job &mdash; to insult, offend, describe. When we <em>mention</em> a word, we are talking about the word itself as an object of study. Philosophers and linguists often mark this with quotation marks: to say <em>"the word 'fuck' has Germanic roots"</em> is to mention the word; to say something aggressively at someone is to use it. This course operates largely in the <em>mention</em> register &mdash; we are examining these words, not wielding them.</p>
+
+      <p>This distinction is not just academic. It is why researchers, teachers, and journalists can discuss slurs in educational contexts. It is also why the distinction can be weaponized &mdash; claiming to "merely mention" a word while using it in ways that cause real harm. The use&ndash;mention line is not always clean, and part of critical language analysis is learning to read when that line is being blurred.</p>
+    </div>
+
+    <div class="callout callout-think reveal">
+      <div class="callout-label">Think About It</div>
+      <p>In 2020, CBC News anchor Wendy Mesley was suspended after she used a racial slur during internal editorial meetings &mdash; reportedly while discussing how media should cover stories that reference that word. She argued she was in "mention" mode; others experienced it as use. Where do you think the line falls, and who gets to draw it?</p>
+    </div>
+
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Section 3 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Pinker, S. (2007). <em>The stuff of thought: Language as a window into human nature.</em> Viking.</p>
+        <p class="apa-entry">Anderson, L., &amp; Lepore, E. (2013). Slurring words. <em>Nous, 47</em>(1), 25&ndash;48.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ============================================================
+     SECTION 4: MOHR'S THREE LENSES
+     ============================================================ -->
+<section id="section-mohr" class="module-section" data-section="Mohr's Three Lenses">
+  <div class="section-inner">
+    <div class="section-number reveal">Section 04</div>
+    <h2 class="section-title reveal">Characterizing Profanity &mdash; <em>Mohr's Three Lenses</em></h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal">Historian Melissa Mohr argues that to properly understand profanity, you need three overlapping frameworks. No single lens is sufficient on its own.</p>
+
+    <div class="prose reveal">
+      <p>In <em>Holy Sh*t: A Brief History of Swearing</em> (2013), Mohr proposes that we think about profanity across three intersecting dimensions: physiological, historical/social, and linguistic. She describes the sacred and the obscene as "two spheres of the unsayable" &mdash; the things humans across cultures have most consistently marked as off-limits, even as the specific content shifts over time.</p>
+    </div>
+
+    <div class="venn-container reveal">
+      <div class="venn-title">Mohr's Framework</div>
+      <div class="venn-sub">Three overlapping lenses for understanding why language becomes profane</div>
+      <div class="venn-svg-wrap">
+        <svg viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <filter id="glow">
+              <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+              <feMerge><feMergeNode in="coloredBlur"/><feMergeNode in="SourceGraphic"/></feMerge>
+            </filter>
+          </defs>
+          <!-- Physiological circle (top) -->
+          <circle cx="250" cy="140" r="100" fill="rgba(220,140,100,0.12)" stroke="rgba(220,140,100,0.5)" stroke-width="2"/>
+          <!-- Historical circle (bottom-left) -->
+          <circle cx="175" cy="260" r="100" fill="rgba(100,180,100,0.12)" stroke="rgba(100,180,100,0.5)" stroke-width="2"/>
+          <!-- Linguistic circle (bottom-right) -->
+          <circle cx="325" cy="260" r="100" fill="rgba(100,140,220,0.12)" stroke="rgba(100,140,220,0.5)" stroke-width="2"/>
+          <!-- Labels -->
+          <text x="250" y="95" text-anchor="middle" fill="#e8a070" font-size="13" font-weight="700" font-family="'Space Mono', monospace">PHYSIOLOGICAL</text>
+          <text x="100" y="310" text-anchor="middle" fill="#7ec87e" font-size="13" font-weight="700" font-family="'Space Mono', monospace">HISTORICAL</text>
+          <text x="100" y="326" text-anchor="middle" fill="#7ec87e" font-size="11" font-family="'Space Mono', monospace">/ SOCIAL</text>
+          <text x="400" y="310" text-anchor="middle" fill="#7aaae8" font-size="13" font-weight="700" font-family="'Space Mono', monospace">LINGUISTIC</text>
+          <!-- Center label -->
+          <text x="250" y="218" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="'Inter', sans-serif" font-style="italic">all three</text>
+          <text x="250" y="232" text-anchor="middle" fill="rgba(255,255,255,0.5)" font-size="10" font-family="'Inter', sans-serif" font-style="italic">at once</text>
+        </svg>
+      </div>
+      <div class="venn-explainer">
+        <div class="venn-lens phys">
+          <strong>Physiological</strong>
+          <p>Profanity has measurable physical effects &mdash; on the speaker's body and the listener's nervous system. This lens asks: what does swearing <em>do</em> to us biologically?</p>
+        </div>
+        <div class="venn-lens hist">
+          <strong>Historical / Social</strong>
+          <p>What counts as profane has changed dramatically across time and across cultures. This lens traces how social power shapes which words become taboo and when.</p>
+        </div>
+        <div class="venn-lens ling">
+          <strong>Linguistic</strong>
+          <p>Swear words have phonological patterns, grammatical properties, and semantic structures that distinguish them from other vocabulary. This lens analyses profanity as a linguistic system.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="prose reveal">
+      <p>Mohr's historical argument can be summarized simply: at any given moment in English-speaking history, the most powerful profanity has tended to cluster around two poles &mdash; the <em>sacred</em> and the <em>scatological/sexual</em>. In medieval England, oaths invoking God's body ("By God's wounds!" "Zounds!") were the most shocking language possible. By the Victorian era, as religion receded from everyday public life, bodily and sexual language moved to the top of the taboo hierarchy. In the 21st century, slurs based on identity have become the most socially consequential category of profanity.</p>
+
+      <p>This doesn't mean earlier forms of profanity disappeared. It means the <em>relative weight</em> of different categories shifts as social values shift. Understanding that shift is what Mohr means by the historical lens.</p>
+    </div>
+
+    <!-- Historical Timeline -->
+    <h3 class="reveal" style="font-size:1.1rem; color: var(--cream); margin-bottom: 24px; font-weight: 600;">The Shifting History of What's Profane</h3>
+    <div class="timeline reveal">
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">Antiquity</div>
+        <div class="tl-heading">Divine Invocation</div>
+        <div class="tl-body">In ancient Greece and Rome, the most powerful taboo language involved invoking the gods inappropriately or cursing enemies through supernatural means. Religious and magical language were deeply intertwined. Curse tablets found throughout the Roman Empire show the power attributed to written imprecations.</div>
+        <span class="tl-example">May the gods strike you down!</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">Middle Ages</div>
+        <div class="tl-heading">Sacred Oaths &amp; God's Body</div>
+        <div class="tl-body">The rise of Judeo-Christian theology made blasphemy and sacrilege the most serious linguistic offences. Swearing by God, Jesus, or the Virgin Mary was both powerful and dangerous. Minced oaths (like "Zounds!" from "God's wounds") emerged as euphemistic workarounds.</div>
+        <span class="tl-example">Zounds!</span>
+        <span class="tl-example">Gadzooks!</span>
+        <span class="tl-example">By God's Bones!</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">Renaissance &amp; Enlightenment</div>
+        <div class="tl-heading">Decentering Religion, Centering the Body</div>
+        <div class="tl-body">As religious authority declined relative to secular social norms, bodily and sexual language began rising in the taboo hierarchy. Concepts of "vulgarity" and class-based disgust became central to policing language. Words that had previously been unremarkable clinical terms became offensive.</div>
+        <span class="tl-example">Cuckold</span>
+        <span class="tl-example">Knave</span>
+        <span class="tl-example">Scoundrel</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">Victorian Era</div>
+        <div class="tl-heading">Bodily Repression</div>
+        <div class="tl-body">Victorian social norms pushed bodily functions and sexuality into intense taboo. Bathroom talk, body parts, and sexual language became primary sites of linguistic regulation. The legacy: most of what we think of today as "classic" English swear words gained their current status in this era.</div>
+        <span class="tl-example">Arse</span>
+        <span class="tl-example">Cock</span>
+        <span class="tl-example">Piss</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">20th Century</div>
+        <div class="tl-heading">Sexual Liberation &amp; Rebellion</div>
+        <div class="tl-body">Sexual liberation movements partially reduced the shock value of sexual language, while the 20th century saw profanity increasingly used as a marker of anti-establishment identity. The rise of mass media created new regulatory regimes. Comedian George Carlin's "Seven Words You Can Never Say on Television" (1972) became a landmark legal case about broadcast profanity in the US.</div>
+        <span class="tl-example">Fuck</span>
+        <span class="tl-example">Shit</span>
+        <span class="tl-example">Bitch</span>
+      </div>
+      <div class="tl-item">
+        <div class="tl-dot"></div>
+        <div class="tl-era">21st Century</div>
+        <div class="tl-heading">Identity Slurs as the New Sacred</div>
+        <div class="tl-body">As bodily language becomes more normalized in mainstream media, identity-based slurs &mdash; targeting race, gender, sexuality, disability, and other dimensions of personhood &mdash; have emerged as the most socially consequential form of profanity. The harm is not just offence but the material consequences for targeted communities.</div>
+        <span class="tl-example">Slurs targeting race</span>
+        <span class="tl-example">Slurs targeting sexuality</span>
+        <span class="tl-example">Slurs targeting disability</span>
+      </div>
+    </div>
+
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Section 4 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Mohr, M. (2013). <em>Holy sh*t: A brief history of swearing.</em> Oxford University Press.</p>
+        <p class="apa-entry">Hughes, G. (1991). <em>Swearing: A social history of foul language, oaths and profanity in English.</em> Blackwell.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ============================================================
+     SECTION 5: BRAIN, BODY & "KIDNAPPERS OF ATTENTION"
+     ============================================================ -->
+<section id="section-physiology" class="module-section" data-section="Brain &amp; Body">
+  <div class="section-inner">
+    <div class="section-number reveal">Section 05</div>
+    <h2 class="section-title reveal">Brain, Body &amp; <em>"Kidnappers of Attention"</em></h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal">Steven Pinker calls swear words "kidnappers of attention." This is not just a clever metaphor &mdash; it is a description of how these words actually function in the nervous system.</p>
+
+    <div class="prose reveal">
+      <p>Most language is processed primarily in the cerebral cortex &mdash; the large, evolutionarily recent, rational outer layer of the brain. Swear words are different. They have unusually strong connections to the <strong>limbic system</strong>: the older, deeper brain structures responsible for emotion, fear responses, and automatic reactions. This is why profanity tends to feel more visceral, more immediate, and harder to ignore than ordinary language.</p>
+
+      <p>The implications are significant. When you hear a swear word directed at you, your body responds before your rational mind has time to process it. Your heart rate may increase slightly. Skin conductance changes. The "fight or flight" pathways activate, however mildly. This is what Pinker means when he says these words "kidnap" your attention: they bypass deliberate cognitive processing and trigger an automatic, emotionally charged response.</p>
+    </div>
+
+    <div class="video-wrap reveal">
+      <div class="video-label">Video: Steven Pinker on Swearing (Big Think)</div>
+      <div class="video-responsive">
+        <iframe src="https://www.youtube.com/embed/6ThVEbHkTKc" title="Steven Pinker on the Science of Swearing" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">Steven Pinker explains his "kidnappers of attention" concept and the neuroscience behind why swear words have such disproportionate emotional impact. (~5 min)</div>
+    </div>
+
+    <div class="prose reveal">
+      <p>Evidence for the limbic processing of profanity comes from several directions. Most strikingly, <strong>coprolalia</strong> &mdash; the involuntary vocalization of obscene or offensive language &mdash; is observed in some people with Tourette syndrome. Because the neural pathways involved in producing spontaneous profanity appear to be somewhat distinct from those involved in deliberate speech, damage or disease affecting cortical speech regions can leave swearing capacity intact even when other language functions are severely impaired. Patients with certain forms of aphasia (language loss following stroke or brain injury) sometimes lose the ability to produce controlled speech while retaining the capacity to swear. The poet and physician Michael Corke documented cases in which profanity was among the last coherent speech to survive extensive neural damage.</p>
+    </div>
+
+    <div class="callout callout-framework reveal">
+      <div class="callout-label">A Note on Coprolalia</div>
+      <p>Coprolalia affects only a minority of people with Tourette syndrome &mdash; estimates range from 10 to 20 percent. It is important not to equate Tourette's with involuntary swearing; the syndrome encompasses far more. But coprolalia is scientifically significant because it provides a kind of natural experiment: it demonstrates that the neural machinery for producing profanity can function independently of the neural machinery for deliberate, socially controlled speech. What does it mean that the brain has what amounts to a separate, older pathway for the most emotionally loaded words in our vocabulary?</p>
+    </div>
+
+    <div class="prose reveal">
+      <p>Related to limbic processing is the concept of <strong>emotional valence</strong> &mdash; the positive or negative charge a word carries beyond its literal meaning. The word "shit" literally refers to feces, but its valence can be positive ("that's some good shit"), neutral ("holy shit, look at that!"), or negative ("that's a shit situation"). The same phonological object, same spelling, radically different valence. This is not an accident; it reflects how profanity is stored and processed emotionally rather than purely semantically.</p>
+
+      <p>The <strong>Stroop effect</strong> offers a compelling demonstration of how profane words commandeer cognitive resources. In a standard Stroop test, participants are asked to name the <em>colour</em> of ink a word is printed in, ignoring what the word says. When the word is a swear word, participants are significantly slower and less accurate &mdash; the meaning of the word interferes with the simpler perceptual task. Their brains cannot help processing the emotional content of the word even when they are trying not to. The word kidnappers the cognitive process.</p>
+    </div>
+
+    <div class="video-wrap reveal">
+      <div class="video-label">Video: The Stroop Effect Explained</div>
+      <div class="video-responsive">
+        <iframe src="https://www.youtube.com/embed/8qXuLSJXw5Y" title="The Stroop Effect - Neurological Interference" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen loading="lazy"></iframe>
+      </div>
+      <div class="video-caption">A quick explainer on the Stroop effect, demonstrating how words automatically compete with other cognitive processes &mdash; especially emotionally loaded words. (~3 min)</div>
+    </div>
+
+    <div class="callout callout-think reveal">
+      <div class="callout-label">Think About It</div>
+      <p>If swear words are processed differently in the brain than other vocabulary &mdash; with stronger, more automatic emotional reactions &mdash; what does that suggest about the claim that "words are just words"? And conversely: if a slur produces a measurable physiological stress response in its target, what does that mean for arguments that hearing offensive language causes "no real harm"?</p>
+    </div>
+
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Section 5 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Pinker, S. (2007). <em>The stuff of thought: Language as a window into human nature.</em> Viking.</p>
+        <p class="apa-entry">Jay, T. (2009). The utility and ubiquity of taboo words. <em>Perspectives on Psychological Science, 4</em>(2), 153&ndash;161.</p>
+        <p class="apa-entry">Van Lancker, D., &amp; Cummings, J. (1999). Expletives: Neurolinguistic and neurobehavioral perspectives on swearing. <em>Brain Research Reviews, 31</em>(1), 83&ndash;104.</p>
+        <p class="apa-entry">Stroop, J. R. (1935). Studies of interference in serial verbal reactions. <em>Journal of Experimental Psychology, 18</em>(6), 643&ndash;662.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ============================================================
+     SECTION 6: TYPOLOGY OF SWEARING + PINKER'S TYPES
+     ============================================================ -->
+<section id="section-typology" class="module-section" data-section="Typology of Swearing">
+  <div class="section-inner">
+    <div class="section-number reveal">Section 06</div>
+    <h2 class="section-title reveal">A <em>Typology</em> of Swearing</h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal">Not all profanity is the same. Two different classification systems &mdash; one categorizing subject matter, one categorizing function &mdash; help us map the full terrain.</p>
+
+    <div class="prose reveal">
+      <p>The first question to ask about any given swear word or category of profanity is: <em>what domain of human experience does it draw from?</em> The second question is: <em>what is it doing functionally?</em> These are different questions, and the answers don't always overlap in predictable ways.</p>
+    </div>
+
+    <h3 class="reveal" style="font-size: 1.1rem; color: var(--cream); margin: 24px 0 12px; font-weight: 600;">What Domain Does It Draw From?</h3>
+    <p class="reveal" style="font-size:0.9rem; color: var(--text-muted); margin-bottom: 20px; line-height:1.7;">Swearing draws from every corner of human culture that a society marks as sensitive, sacred, or shameful. The categories below represent the major thematic clusters &mdash; though their relative weight varies significantly across cultures and time periods.</p>
+
+    <div class="typology-visual reveal">
+      <div class="typology-center">SWEARS</div>
+      <div class="typology-clusters">
+        <span class="typ-cluster typ-blue">Spirituality</span>
+        <span class="typ-cluster typ-blue">God / Evil</span>
+        <span class="typ-cluster typ-teal">The Human Body</span>
+        <span class="typ-cluster typ-teal">Scatological</span>
+        <span class="typ-cluster typ-teal">Sex / Body Parts</span>
+        <span class="typ-cluster typ-purple">Derogatory &rarr; Race</span>
+        <span class="typ-cluster typ-purple">Gender &amp; Sex</span>
+        <span class="typ-cluster typ-purple">Sexuality</span>
+        <span class="typ-cluster typ-purple">Class</span>
+        <span class="typ-cluster typ-purple">Mental Health</span>
+        <span class="typ-cluster typ-purple">Intellectual Ability</span>
+        <span class="typ-cluster typ-grey">Physical Ability</span>
+        <span class="typ-cluster typ-grey">Animals</span>
+        <span class="typ-cluster typ-grey">Death and Violence</span>
+        <span class="typ-cluster typ-green">Expletives</span>
+        <span class="typ-cluster typ-green">Intensifiers</span>
+        <span class="typ-cluster typ-green">Minced Oaths</span>
+        <span class="typ-cluster typ-olive">Political</span>
+      </div>
+    </div>
+
+    <h3 class="reveal" style="font-size: 1.1rem; color: var(--cream); margin: 36px 0 12px; font-weight: 600;">Pinker's Five Types: What Is It Doing?</h3>
+    <p class="reveal" style="font-size:0.9rem; color: var(--text-muted); margin-bottom: 20px; line-height:1.7;">Steven Pinker argues that profanity can be classified by <em>function</em> &mdash; what the speaker is trying to accomplish. The same word can fall into different types depending on context. Click each card to expand. (Pinker, 2007)</p>
+
+    <div class="pinker-grid reveal" id="pinker-grid">
+
+      <div class="pinker-card" onclick="togglePinker(this)">
+        <span class="pc-toggle">&#9660;</span>
+        <div class="pc-type">Type 1 of 5</div>
+        <div class="pc-name">Dysphemistic</div>
+        <div class="pc-short">Making something sound worse. The opposite of euphemism.</div>
+        <div class="pc-detail">
+          Dysphemism uses an offensively blunt substitute for a neutral or positive term. It suggests a negative perception, attitude, or reaction. Calling police "pigs," or referring to someone as a "bastard" rather than their name, frames the subject through a negative lens.
+          <span class="pc-example">Example: "The pigs showed up" instead of "The officers arrived."</span>
+        </div>
+      </div>
+
+      <div class="pinker-card" onclick="togglePinker(this)">
+        <span class="pc-toggle">&#9660;</span>
+        <div class="pc-type">Type 2 of 5</div>
+        <div class="pc-name">Abusive</div>
+        <div class="pc-short">Directed at people. Designed to hurt, intimidate, or insult.</div>
+        <div class="pc-detail">
+          Abusive swearing is aimed at a person or group, with the goal of threatening, demeaning, or causing emotional harm. This is the category most directly linked to concepts of verbal abuse, harassment, and hate speech. Slurs often function primarily in this register.
+          <span class="pc-example">Example: Any slur deployed to harm or demean; "Fuck you!"</span>
+        </div>
+      </div>
+
+      <div class="pinker-card" onclick="togglePinker(this)">
+        <span class="pc-toggle">&#9660;</span>
+        <div class="pc-type">Type 3 of 5</div>
+        <div class="pc-name">Idiomatic</div>
+        <div class="pc-short">Figurative, informal. Not literally taboo &mdash; used to express enthusiasm, emphasis, or connection.</div>
+        <div class="pc-detail">
+          Idiomatic swearing has largely lost its literal or offensive charge. It functions as a social lubricant, a way of signalling informality, excitement, or camaraderie. Profanity in idioms often reads as unremarkable in casual speech. "Up shit's creek without a paddle" is understood figuratively, not scatologically.
+          <span class="pc-example">Example: "That's some seriously good shit." "I'm so fucked up, man."</span>
+        </div>
+      </div>
+
+      <div class="pinker-card" onclick="togglePinker(this)">
+        <span class="pc-toggle">&#9660;</span>
+        <div class="pc-type">Type 4 of 5</div>
+        <div class="pc-name">Emphatic</div>
+        <div class="pc-short">Used to show surprise, intensity, or to amplify a statement.</div>
+        <div class="pc-detail">
+          Emphatic profanity functions primarily as an intensifier &mdash; it turns up the emotional volume on what is being said. The actual taboo content of the word is secondary to its intensifying function. Political figures and public speakers often deploy this register under pressure.
+          <span class="pc-example">Example: "Get the fuck out of here" (expressing disbelief); "That is absolutely brilliant!"</span>
+        </div>
+      </div>
+
+      <div class="pinker-card" onclick="togglePinker(this)">
+        <span class="pc-toggle">&#9660;</span>
+        <div class="pc-type">Type 5 of 5</div>
+        <div class="pc-name">Cathartic</div>
+        <div class="pc-short">Involuntary or semi-voluntary. Used for emotional release, often in response to pain or frustration.</div>
+        <div class="pc-detail">
+          Cathartic swearing is often triggered without deliberate intention &mdash; the limbic system fires before the cortex has time to intervene (remember Mohr's physiological lens). It provides genuine relief from stress, pain, or frustration. Research by Stephens et al. (2009) found that swearing after pain actually increased pain tolerance &mdash; the "hypoalgesic effect."
+          <span class="pc-example">Example: Dropping something on your foot: "SHIT!" Stubbing a toe in the dark.</span>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="callout callout-connect reveal">
+      <div class="callout-label">Connect to Your Assignment</div>
+      <p><strong>Bad Word Analysis:</strong> When you analyze your chosen word, you will need to identify which of Pinker's five types it most commonly falls into &mdash; and whether that changes across different contexts or communities. Notice that a single word (like "fuck") can function in all five categories depending entirely on how it is being used.</p>
+      <p><strong>Personal Profanity Profile:</strong> Think about the swear words you do and don't use, and which of Pinker's types you gravitate toward. Do you use profanity mostly idiomatically? Cathartically? Does context change this for you?</p>
+    </div>
+
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Section 6 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Pinker, S. (2007). <em>The stuff of thought: Language as a window into human nature.</em> Viking.</p>
+        <p class="apa-entry">Stephens, R., Atkins, J., &amp; Kingston, A. (2009). Swearing as a response to pain. <em>NeuroReport, 20</em>(12), 1056&ndash;1060.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ============================================================
+     SECTION 7: WHO DECIDES / SOCIAL FORCES
+     ============================================================ -->
+<section id="section-who" class="module-section" data-section="Who Decides?">
+  <div class="section-inner">
+    <div class="section-number reveal">Section 07</div>
+    <h2 class="section-title reveal">Who <em>Decides</em>?</h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal">"Bad words create the boundaries of what we reject and accept as a society." This insight raises an urgent question: who gets to draw those boundaries, and through what mechanisms?</p>
+
+    <div class="pull-quote reveal">
+      <blockquote>"Bad words create the boundaries of what we reject and accept as a society."</blockquote>
+      <cite>Vsauce (Michael Stevens)</cite>
+    </div>
+
+    <div class="prose reveal">
+      <p>Profanity does not emerge from a neutral process. The words that get coded as taboo, and the severity of their taboo status, reflect the distribution of social power. What is considered grossly offensive in one setting may be entirely acceptable in another &mdash; not because people in those settings have different moral sensibilities, but because different institutions, communities, and relationships are operating.</p>
+
+      <p>This connects to what Mohr describes as the <strong>semantic pejoration</strong> process: the way words that refer to marginalized groups tend to become insults over time, regardless of their original meaning. The pattern is consistent: a neutral or even positive descriptor gets applied to a group with low social status, absorbs the negative connotations associated with that group, and eventually becomes an epithet or slur. "Idiot," "moron," and "imbecile" were originally clinical diagnostic terms in early 20th-century psychology. Their transformation into insults reflects how disability has been stigmatized &mdash; not anything inherent to the words themselves.</p>
+    </div>
+
+    <h3 class="reveal" style="font-size: 1.05rem; color: var(--cream); margin: 28px 0 12px; font-weight: 600;">The Layers of Who Decides</h3>
+    <div class="who-decides-rings reveal">
+      <div class="wdr-item">
+        <div class="wdr-level">Family &amp; Household</div>
+        <div class="wdr-body">The most immediate language socialization. What was allowed or punished in your home shapes your initial sense of what counts as offensive and who has the right to say what.</div>
+      </div>
+      <div class="wdr-item">
+        <div class="wdr-level">Community</div>
+        <div class="wdr-body">Peer groups, neighbourhoods, and cultural communities have their own linguistic norms that may differ substantially from mainstream standards. Code-switching &mdash; moving between registers &mdash; is a daily reality for many speakers.</div>
+      </div>
+      <div class="wdr-item">
+        <div class="wdr-level">Social Institutions</div>
+        <div class="wdr-body">Schools, workplaces, churches, and other institutions enforce specific language standards, often backed by formal consequences. These norms reflect institutional power more than any inherent property of the words involved.</div>
+      </div>
+      <div class="wdr-item">
+        <div class="wdr-level">Pop Culture &amp; Media</div>
+        <div class="wdr-body">Entertainment, music, and social media both reflect and reshape taboo language. Platforms have their own content moderation policies. What gets broadcast, what gets censored, and what goes viral are all exercises of cultural power.</div>
+      </div>
+      <div class="wdr-item">
+        <div class="wdr-level">Government &amp; Law</div>
+        <div class="wdr-body">Broadcasting regulations, obscenity laws, and hate speech legislation formalize some language standards into enforceable rules. Notably, these laws are themselves contested &mdash; the line between protected expression and harmful speech is actively debated in every democratic society.</div>
+      </div>
+      <div class="wdr-item">
+        <div class="wdr-level">Social Norms / Taboos</div>
+        <div class="wdr-body">The most diffuse but often most powerful layer. Norms are enforced through social pressure, shame, and inclusion/exclusion &mdash; often without any explicit rule being stated. These are the "invisible" mechanisms that do most of the work.</div>
+      </div>
+    </div>
+
+    <div class="prose reveal">
+      <p>Notice that power runs through all of these layers. The family that punishes a child for saying "damn" is not enforcing a natural law; they are transmitting a social norm. The broadcaster that bleeps a slur is making an editorial decision shaped by regulatory history and advertiser pressure. The community that reclaims a word that was previously used as a weapon against it is exercising agency within, and against, these power structures.</p>
+    </div>
+
+    <div class="callout callout-think reveal">
+      <div class="callout-label">Think About It</div>
+      <p>George Carlin's 1972 "Seven Words You Can Never Say on Television" bit (shown in class) became a Supreme Court case (FCC v. Pacifica Foundation, 1978) that shaped American broadcast law for decades. Carlin's point was not just that censorship is absurd &mdash; it was that the arbitrary selection of certain words as unsayable, while allowing discussion of war, murder, and torture, reveals something about whose sensitivities actually get protected. What does your own list of "never say" words reveal about which communities' feelings were prioritized in your upbringing?</p>
+    </div>
+
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Section 7 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Mohr, M. (2013). <em>Holy sh*t: A brief history of swearing.</em> Oxford University Press.</p>
+        <p class="apa-entry">Jay, T. (2009). The utility and ubiquity of taboo words. <em>Perspectives on Psychological Science, 4</em>(2), 153&ndash;161.</p>
+        <p class="apa-entry">FCC v. Pacifica Foundation, 438 U.S. 726 (1978).</p>
+        <p class="apa-entry">Croom, A. M. (2011). Slurs. <em>Language Sciences, 33</em>(3), 343&ndash;358.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ============================================================
+     SECTION 8: GLOBAL LENS
+     ============================================================ -->
+<section id="section-global" class="module-section" data-section="Global Lens">
+  <div class="section-inner">
+    <div class="section-number reveal">Section 08</div>
+    <h2 class="section-title reveal">A <em>Global Lens</em></h2>
+    <div class="divider reveal"></div>
+    <p class="section-lead reveal">Most English-language scholarship on profanity centres Western European and North American contexts. But taboo language is a human universal &mdash; and examining non-Western frameworks reveals that the concepts we take for granted are far more culturally specific than they appear.</p>
+
+    <div class="prose reveal">
+      <p>The frameworks we have covered so far &mdash; Mohr's three lenses, Pinker's types, the use-mention distinction &mdash; are powerful analytical tools, but they emerge from a particular intellectual tradition. They were developed primarily by English-speaking scholars working within Western academic institutions, drawing mostly on English-language data. That is worth naming.</p>
+
+      <p>Non-Western frameworks for understanding language power are not supplementary context. They are analytical frameworks in their own right &mdash; and in some cases they describe aspects of the relationship between language and harm that Western models have historically undertheorized.</p>
+    </div>
+
+    <div class="global-grid reveal">
+
+      <div class="global-card">
+        <div class="gc-tradition">Japanese Tradition</div>
+        <div class="gc-concept">Kotodama (言霊)</div>
+        <div class="gc-body">The belief that words carry inherent spiritual power &mdash; that language is not merely referential but efficacious. Speaking ill is not just rude; it risks actually bringing that ill into being. This framework provides a culturally grounded account of why "words are not just words" &mdash; a debate Western philosophy approaches differently through speech act theory.</div>
+      </div>
+
+      <div class="global-card">
+        <div class="gc-tradition">Yoruba Tradition</div>
+        <div class="gc-concept">Egan (derogatory speech)</div>
+        <div class="gc-body">In Yoruba oral traditions, certain categories of derogatory speech carry obligations of social repair. Language that damages someone's social standing creates responsibilities for the speaker that extend beyond simple apology. This embeds linguistic ethics into a framework of social relationship and community accountability.</div>
+      </div>
+
+      <div class="global-card">
+        <div class="gc-tradition">Indigenous North American</div>
+        <div class="gc-concept">Relational Language Philosophy</div>
+        <div class="gc-body">Many Indigenous language traditions understand language as fundamentally relational &mdash; words do not simply label objects or feelings; they enact relationships. Language that disrupts relational harmony is understood as harmful on those grounds, not simply because it violates an abstract norm of decency.</div>
+      </div>
+
+      <div class="global-card">
+        <div class="gc-tradition">Arabic &amp; Islamic Tradition</div>
+        <div class="gc-concept">Linguistic Ethics (Adab al-kalam)</div>
+        <div class="gc-body">Classical Islamic scholarship developed extensive frameworks for evaluating speech ethically, distinguishing categories of harmful, offensive, and permissible language with considerable nuance. These traditions predate and parallel many Western academic frameworks, and address questions about harm and intent that contemporary linguistics is only recently theorizing rigorously.</div>
+      </div>
+
+      <div class="global-card">
+        <div class="gc-tradition">Post-Colonial Framework</div>
+        <div class="gc-concept">Ngugi wa Thiong'o</div>
+        <div class="gc-body">The Kenyan writer Ngugi wa Thiong'o argues that colonial imposition of European languages was itself a form of linguistic violence &mdash; one that restructured which words, concepts, and entire ways of organizing experience were available for expression. This means that questions of "profanity" in post-colonial contexts cannot be separated from questions of linguistic power and cultural survival.</div>
+      </div>
+
+      <div class="global-card">
+        <div class="gc-tradition">Cross-Cultural Pattern</div>
+        <div class="gc-concept">Universal but Not Uniform</div>
+        <div class="gc-body">Despite the enormous variation in what counts as taboo across cultures, there are striking patterns: virtually all human societies have categories of sacred speech, of speech that carries dangerous power, and of speech that violates relationships or communal norms. Profanity appears to be a human universal &mdash; but its specific content is always culturally determined.</div>
+      </div>
+
+    </div>
+
+    <div class="callout callout-framework reveal">
+      <div class="callout-label">Why This Matters for Your Analysis</div>
+      <p>If you analyze a word that primarily affects a community outside the Western European tradition &mdash; a slur targeting an Indigenous group, a blasphemy from a non-Christian tradition, a word whose taboo status is rooted in a non-Western cultural framework &mdash; using only Pinker's or Mohr's frameworks will give you an incomplete analysis. The frameworks in this section can help you think about harm, power, and taboo in ways that are more responsive to the specific cultural contexts involved.</p>
+    </div>
+
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Section 8 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Ngugi wa Thiong'o. (1986). <em>Decolonising the mind: The politics of language in African literature.</em> James Currey.</p>
+        <p class="apa-entry">Tremearne, A. J. N. (1913). <em>Hausa superstitions and customs: An introduction to the folk-lore and the folk.</em> John Bale, Sons &amp; Danielsson.</p>
+        <p class="apa-entry">Goddard, C. (Ed.). (2006). <em>Ethnopragmatics: Understanding discourse in cultural context.</em> Mouton de Gruyter.</p>
+        <p class="apa-entry">Coulmas, F. (2018). <em>An introduction to multilingualism: Language in a changing world.</em> Oxford University Press.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<hr class="section-sep">
+
+<!-- ============================================================
+     WRAP-UP & ASSIGNMENT CONNECTIONS
+     ============================================================ -->
+<section class="module-section">
+  <div class="section-inner">
+    <div class="section-number reveal">Wrap-Up</div>
+    <h2 class="section-title reveal">Putting It <em>Together</em></h2>
+    <div class="divider reveal"></div>
+
+    <div class="prose reveal">
+      <p>Module 1 has given you a set of analytical tools rather than a single definition. That is intentional. You should now be able to:</p>
+      <ol>
+        <li>Explain why profanity cannot be adequately defined by any single framework &mdash; and what each of the five major definition types captures and misses</li>
+        <li>Use key terminology (profanity, swearing, slur, blasphemy, euphemism, dysphemism, taboo) precisely</li>
+        <li>Apply Mohr's three lenses (physiological, historical/social, linguistic) to analyze why a given word or category of language is considered profane</li>
+        <li>Explain the neuroscience behind why profanity commands attention differently from ordinary language</li>
+        <li>Classify a given instance of swearing using Pinker's five types</li>
+        <li>Identify the social forces and power structures that shape which language gets designated as taboo</li>
+        <li>Recognize the limits of Western-centric frameworks and apply at least one non-Western analytical lens</li>
+      </ol>
+    </div>
+
+    <div class="callout callout-connect reveal">
+      <div class="callout-label">Connect to Your Assignments</div>
+      <p><strong>Personal Profanity Profile (Part I):</strong> You are now equipped to write analytically about your own linguistic history. The concepts from this module &mdash; particularly context, use vs. mention, and the social forces that shaped your household norms &mdash; are directly applicable.</p>
+      <p><strong>Bad Word Analysis:</strong> Every analytical category introduced in this module is a potential lens for your word analysis. Consider: which definition framework(s) apply? Which of Mohr's lenses are most relevant? Which of Pinker's types does your word typically fall into? What are the social forces that made it taboo? What non-Western frameworks might be relevant if the word crosses cultural contexts?</p>
+    </div>
+
+    <!-- Full Reference List -->
+    <div class="apa-accordion reveal">
+      <button class="apa-toggle" onclick="toggleAPA(this)">
+        Full Module 1 References <span class="toggle-icon">&#9660;</span>
+      </button>
+      <div class="apa-content">
+        <p class="apa-entry">Allan, K., &amp; Burridge, K. (2006). <em>Forbidden words: Taboo and the censoring of language.</em> Cambridge University Press.</p>
+        <p class="apa-entry">Anderson, L., &amp; Lepore, E. (2013). Slurring words. <em>Nous, 47</em>(1), 25&ndash;48.</p>
+        <p class="apa-entry">Coulmas, F. (2018). <em>An introduction to multilingualism: Language in a changing world.</em> Oxford University Press.</p>
+        <p class="apa-entry">Croom, A. M. (2011). Slurs. <em>Language Sciences, 33</em>(3), 343&ndash;358.</p>
+        <p class="apa-entry">FCC v. Pacifica Foundation, 438 U.S. 726 (1978).</p>
+        <p class="apa-entry">Goddard, C. (Ed.). (2006). <em>Ethnopragmatics: Understanding discourse in cultural context.</em> Mouton de Gruyter.</p>
+        <p class="apa-entry">Hughes, G. (1991). <em>Swearing: A social history of foul language, oaths and profanity in English.</em> Blackwell.</p>
+        <p class="apa-entry">Jay, T. (1992). <em>Cursing in America: A psycholinguistic study of dirty language in the courts, in the movies, in the schoolyards, and on the streets.</em> John Benjamins.</p>
+        <p class="apa-entry">Jay, T. (2009). The utility and ubiquity of taboo words. <em>Perspectives on Psychological Science, 4</em>(2), 153&ndash;161.</p>
+        <p class="apa-entry">Mohr, M. (2013). <em>Holy sh*t: A brief history of swearing.</em> Oxford University Press.</p>
+        <p class="apa-entry">Ngugi wa Thiong'o. (1986). <em>Decolonising the mind: The politics of language in African literature.</em> James Currey.</p>
+        <p class="apa-entry">Oxford English Dictionary. (n.d.). <em>Profanity.</em> Oxford University Press.</p>
+        <p class="apa-entry">Pinker, S. (2007). <em>The stuff of thought: Language as a window into human nature.</em> Viking.</p>
+        <p class="apa-entry">Stephens, R., Atkins, J., &amp; Kingston, A. (2009). Swearing as a response to pain. <em>NeuroReport, 20</em>(12), 1056&ndash;1060.</p>
+        <p class="apa-entry">Stroop, J. R. (1935). Studies of interference in serial verbal reactions. <em>Journal of Experimental Psychology, 18</em>(6), 643&ndash;662.</p>
+        <p class="apa-entry">Van Lancker, D., &amp; Cummings, J. (1999). Expletives: Neurolinguistic and neurobehavioral perspectives on swearing. <em>Brain Research Reviews, 31</em>(1), 83&ndash;104.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- ============================================================
+     FOOTER
+     ============================================================ -->
+<footer>
+  <div class="footer-inner">
+    <div class="footer-course">CULT 2300 &mdash; WTF: Profanity, Language &amp; Power</div>
+    <div class="footer-title">Module 1: The Origins of Profanity</div>
+    <div class="footer-credits">
+      Authored by <strong>Michael Spencer</strong>, Humber Polytechnic &mdash; School of Liberal Arts &amp; Sciences.<br>
+      Coded by <a href="https://www.anthropic.com">Claude</a> (Anthropic). Module content is for educational purposes. All scholarly citations are provided for student reference.<br>
+      Course materials &copy; Michael Spencer. Do not reproduce without permission.
+    </div>
+  </div>
+</footer>
+
+<!-- ============================================================
+     JAVASCRIPT
+     ============================================================ -->
+<script>
+// ---- PROGRESS BAR ----
+const progressBar = document.getElementById('progress-bar');
+function updateProgress() {
+  const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+  const scrolled = window.scrollY;
+  const pct = docHeight > 0 ? (scrolled / docHeight) * 100 : 0;
+  progressBar.style.width = pct + '%';
+}
+window.addEventListener('scroll', updateProgress, { passive: true });
+
+// ---- SECTION HIGHLIGHTING ----
+const navLinks = document.querySelectorAll('.nav-link');
+const sections = document.querySelectorAll('[data-section]');
+const currentLabel = document.getElementById('nav-current-section');
+
+function updateNav() {
+  let current = '';
+  sections.forEach(section => {
+    const rect = section.getBoundingClientRect();
+    if (rect.top <= 80 && rect.bottom > 80) {
+      current = section.getAttribute('data-section');
+    }
+  });
+  navLinks.forEach(link => {
+    link.classList.remove('active');
+    const href = link.getAttribute('href');
+    if (href && document.querySelector(href) && document.querySelector(href).getAttribute('data-section') === current) {
+      link.classList.add('active');
+    }
+  });
+  if (currentLabel && current) currentLabel.textContent = current;
+}
+window.addEventListener('scroll', updateNav, { passive: true });
+
+// ---- SCROLL REVEAL ----
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('visible');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// ---- APA TOGGLES ----
+function toggleAPA(btn) {
+  btn.classList.toggle('open');
+  const content = btn.nextElementSibling;
+  content.classList.toggle('visible');
+}
+
+// ---- PINKER CARDS ----
+function togglePinker(card) {
+  card.classList.toggle('open');
+}
+</script>
+
+</body>
+</html>
+HTMLEOF
